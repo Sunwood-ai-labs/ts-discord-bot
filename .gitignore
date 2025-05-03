@@ -1,5 +1,14 @@
-# Ignore text files in repository root
-/*.txt
-.SourceSageAssets/
-*.json
+node_modules/
+dist/
+# Debug info
+debug_info.txt
+# Logs
+logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
