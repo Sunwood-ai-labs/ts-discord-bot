@@ -13,6 +13,7 @@ interface CommandModule {
 declare module 'discord.js' {
   interface Client {
     commands: Collection<string, CommandModule>;
+    prefix: string;
   }
 }
 
@@ -23,9 +24,10 @@ const client = new Client({
     GatewayIntentBits.MessageContent
   ]
 });
-
+ 
 client.commands = new Collection();
-
+client.prefix = config.prefix;
+ 
 // Load command modules
 const commandsPath = join(__dirname, 'commands');
 const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith('.js') || file.endsWith('.ts'));
