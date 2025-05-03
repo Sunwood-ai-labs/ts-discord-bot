@@ -1,123 +1,129 @@
 <div align="center">
 
-![Image](https://github.com/user-attachments/assets/04c68e93-e88b-45d2-bfab-8060c906dd7c)
+<!--
+  SVG header
+  assets/header.svg に配置されたロゴをインラインで読み込む場合は以下を参照
+  <img src="assets/header.svg" width="100%" />
+-->
 
-# [Codex-Workspace](https://github.com/Sunwood-ai-labs/Codex-Workspace)
+# ✨ ts-discord-bot
 
-<p align="center">
-  <img src="https://img.shields.io/badge/OpenAI_Codex-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI Codex">
-  <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="GitHub Actions">
-  <img src="https://img.shields.io/badge/Automation-000000?style=for-the-badge&logo=robot&logoColor=white" alt="Automation">
-</p>
-
-<p align="center">
-  OpenAI Codexを活用したシンプルで効率的なGitHub Actionsワークフロー集
-</p>
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/>
+<img src="https://img.shields.io/badge/discord.js-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="discord.js"/>
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node"/>
 
 </div>
 
-## 🚀 概要
+> **ts-discord-bot** は **TypeScript + discord.js v14** で実装されたシンプルな Discord ボットのスターターテンプレートです。  
+> コマンド登録・イベントハンドリング・環境変数設定など、最低限必要な構成を備えています。
 
-このリポジトリは、OpenAI Codexの強力な機能をGitHub Actions内で活用し、リポジトリの自動化を実現する軽量なワークフロー集です。重たい処理を避け、必要最小限の機能に絞ることで、シンプルさと効率性を両立しています。
+---
 
-## ✨ 特徴
+## 🗒️ 目次
+- [主な機能](#主な機能)
+- [動作環境](#動作環境)
+- [インストール](#インストール)
+- [環境変数の設定](#環境変数の設定)
+- [実行方法](#実行方法)
+- [コマンド一覧](#コマンド一覧)
+- [ディレクトリ構成](#ディレクトリ構成)
+- [ライセンス](#ライセンス)
 
-- 💬 **Issue自動応答**: 新しいissueや更新に対して、Codexが内容を分析し適切な返信や修正を提供
-- 📝 **ドキュメント品質チェック（ベータ版）**: READMEやドキュメントの品質を自動で確認し、改善提案をPRで実施
-- 🔍 **コードレビュー（ベータ版）**: PRのコードを自動レビューし、改善点を提案
-- 🌐 **README翻訳（ベータ版）**: README.mdを日本語に自動翻訳してPRを作成
-- 📜 **リリースノート自動生成**: タグpush時にCodexでリリースノートを生成し、GitHub Releaseを作成
+## 主な機能
+| 機能 | 説明 |
+| ---- | ---- |
+| `!ping` | **Pong!** と応答 |
+| `!help` | 利用可能なメッセージコマンド一覧を表示 |
+| イベント処理 | `ready`, `messageCreate`, `interactionCreate` を実装済み |
+| logger | シンプルなロガー (`src/utils/logger.ts`) を同梱 |
 
-## 📦 セットアップ
+> 💡 **Slash Command** 対応は未実装ですが、コマンド登録ロジックは拡張可能な構成になっています。
 
-以下の手順に従い、リポジトリを初期化し、必要な環境変数やシークレットを設定してください。
+## 動作環境
+- Node.js **16.9.0 以上**  
+- npm または pnpm / yarn  
+- Discord Bot アカウント & トークン  
+- （必要に応じて）OpenAI / GitHub Token など
 
-### 1. リポジトリをクローン
-
+## インストール
 ```bash
-git clone https://github.com/<USERNAME>/<REPO>.git
-cd <REPO>
+git clone https://github.com/Sunwood-ai-labs/ts-discord-bot.git
+cd ts-discord-bot
+
+# 依存パッケージをインストール
+npm install        # or pnpm install / yarn install
 ```
 
-### 2. .envファイルの作成
+## 環境変数の設定
+1. テンプレートをコピー  
+   ```bash
+   cp .env.example .env
+   ```
+2. `.env` を開き、以下を設定  
+   | 変数 | 用途 |
+   |------|------|
+   | `DISCORD_TOKEN` | Discord Bot トークン |
+   | `PREFIX` | メッセージコマンドのプレフィックス（デフォルト: `!`） |
+   | その他 | `.env.example` 内のコメントを参照 |
 
+## 実行方法
+### 開発モード
+ホットリロード付きで TypeScript を直接実行します。
 ```bash
-cp .env.example .env
+npm run dev
 ```
-`.env`ファイルを開き、以下の環境変数を設定してください：
+`src/` 以下を保存すると自動で再起動します。
 
-* `OPENAI_API_KEY`    : OpenAI APIキー  
-* `GITHUB_TOKEN`      : GitHub APIトークン（省略可、GitHub Actionsでは自動で提供されます）  
-* `CODEX_QUIET_MODE`  : Codexのクワイエットモード（例: `1`）  
+### 本番モード
+1. ビルド  
+   ```bash
+   npm run build
+   ```
+2. 起動  
+   ```bash
+   npm start
+   ```
 
-### 3. シークレットの設定（GitHub Actions用）
+## コマンド一覧
+| コマンド | 概要 |
+| -------- | ---- |
+| `npm run dev`   | ts-node-dev で開発サーバー起動 |
+| `npm run build` | tsc で `dist/` へトランスパイル |
+| `npm start`     | `node dist/index.js` で Bot 起動 |
 
-GitHubリポジトリの Settings > Secrets で以下を追加してください：
+## 💬 チャット上での使い方
 
-* `OPENAI_API_KEY` : OpenAI APIキー  
+ボットがサーバーに参加し、オンラインになったらテキストチャンネルで以下のように入力してみてください。  
+デフォルトの **プレフィックスは \`!\`** です（.env の `PREFIX` で変更可能）。
 
-### 4. ワークフローの有効化
+| 入力例 | 反応 | 説明 |
+| ------ | ---- | ---- |
+| `!ping` | `Pong!` | 疎通確認コマンド |
+| `!help` | `Available commands: ping, help` | 利用可能なメッセージコマンドを一覧表示 |
 
-`.github/workflows/` にあるワークフローファイルが自動的に有効になります。
+> ❗ ボットをメンションする必要はありません。先頭にプレフィックスを付けるだけで OK です。
 
-## 🛠️ 使用方法
+### プレフィックスを変更したい場合
+1. `.env` の `PREFIX` を好きな文字列に変更  
+2. ボットを再起動
 
-### Issue自動応答
+### Slash Command について
+現時点ではメッセージベースのコマンドのみ対応しています。  
+**Slash Command** を追加する場合は、`src/commands/` にスラッシュ用モジュールを作成し、Discord API への登録処理を別途実装してください。
+## ディレクトリ構成
+```text
+ts-discord-bot/
+├── src/
+│   ├── commands/             # メッセージコマンド
+│   ├── events/               # Discord イベント
+│   ├── utils/                # 補助モジュール
+│   ├── config.ts             # .env 読み込み & 共通設定
+│   └── index.ts              # エントリーポイント
+├── dist/                     # ビルド後出力（gitignore）
+├── .env.example              # 環境変数サンプル
+├── tsconfig.json             # TypeScript 設定
+└── package.json
+```
 
-1. Issueを作成または更新
-2. Codexが内容を分析し、適切な返信を投稿
-3. コード修正が必要な場合は自動的にPRを作成
-
-### ドキュメント品質チェック
-
-1. マークダウンファイルをプッシュまたはPR作成
-2. Codexが品質をチェックし、改善点を自動修正
-3. 修正内容をPRとして提案
-
-### コードレビュー
-
-1. 新しいPRを作成
-2. Codexが変更内容をレビュー
-3. 改善提案をコメントとして投稿
-
- ### README翻訳
-
-1. README.mdを更新
-2. 自動的に日本語版を作成
- 3. README.ja.mdとしてPRを作成
-   
- ### リリースノート自動生成
-
- 1. タグを `v*` の形式で push
- 2. auto-release-notes ワークフローが実行され、変更差分を解析して `release_notes.md` を生成
- 3. `release_notes.md` に基づいて GitHub Release を作成
-
-## ⚙️ ワークフロー一覧
-
-| ワークフロー | トリガー | 説明 |
-|------------|--------------------|----------------------------|
-| `auto-release-notes.yml` | push（タグ `v*`） | リリースノートの自動生成 |
-| `issue-response-codex.yml` | Issue作成／編集、コメント投稿 | Issueへの自動応答 |
-| `beta-code-review-codex.yml` | PR作成／更新 | コードレビュー (ベータ版) |
-| `beta-document-quality-check.yml` | Markdownファイル変更 | ドキュメント品質チェック (ベータ版) |
-| `beta-readme-translation-codex.yml` | README.md変更 | README翻訳 (ベータ版) |
-
-※ `beta-*.yml` はベータ版です。実験的機能のため、利用時はご注意ください。
-
-## 🔧 カスタマイズ
-
-各ワークフローのCodexプロンプトをカスタマイズすることで、プロジェクトのニーズに合わせた動作調整が可能です。
-
-## 📝 注意事項
-
-- Codexは `CODEX_QUIET_MODE=1` でノイズを最小限に抑制
-- `-a auto-edit` オプションで自動承認モードを有効化
-- すべての処理は日本語プロンプトで実行
-
-## 🤝 コントリビューション
-
-改善提案やバグ報告は、Issueでお知らせください。PRも歓迎です！
-
-## 📄 ライセンス
-
+## ライセンス
 MIT License
