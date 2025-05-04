@@ -9,6 +9,9 @@
 <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node"/>
 
 </div>
+<p align="right">
+  日本語 | <a href="README.en.md">English</a>
+</p>
 
 > **ts-discord-bot** は **TypeScript + discord.js v14** で実装されたシンプルな Discord ボットのスターターテンプレートです。  
 > コマンド登録・イベントハンドリング・環境変数設定など、最低限必要な構成を備えています。

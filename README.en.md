@@ -1,114 +1,117 @@
 <div align="center">
 
-![Image](https://github.com/user-attachments/assets/04c68e93-e88b-45d2-bfab-8060c906dd7c)
+<img src="https://github.com/user-attachments/assets/4270251d-37a8-45d3-beac-f18d125a17b1" alt="Header Image" width="100%" />
 
-# [Codex-Workspace](https://github.com/Sunwood-ai-labs/Codex-Workspace)
+# ✨ ts-discord-bot
 
-<p align="center">
-  <img src="https://img.shields.io/badge/OpenAI_Codex-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI Codex">
-  <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="GitHub Actions">
-  <img src="https://img.shields.io/badge/Automation-000000?style=for-the-badge&logo=robot&logoColor=white" alt="Automation">
-</p>
-
-<p align="center">
-  A collection of simple and efficient GitHub Actions workflows leveraging OpenAI Codex
-</p>
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/>
+<img src="https://img.shields.io/badge/discord.js-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="discord.js"/>
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node"/>
 
 </div>
 
-## 🚀 Overview
+<p align="right">
+  <a href="README.md">日本語</a> | English
+</p>
 
-This repository is a lightweight collection of workflows that harness the powerful capabilities of OpenAI Codex within GitHub Actions to automate your repository. By avoiding heavy processing and focusing on essential features, it achieves both simplicity and efficiency.
+> **ts-discord-bot** is a simple Discord bot starter template implemented with **TypeScript + discord.js v14**.  
+> It comes with the minimum structure you need, including command registration, event handling, and environment variable setup.
 
-## ✨ Features
+## Features
+| Feature | Description |
+| ---- | ---- |
+| `!ping` | Responds with **Pong!** |
+| `!help` | Shows the list of available message commands |
+| Event handlers | Implements `ready`, `messageCreate`, and `interactionCreate` |
+| Logger | Lightweight logger included (`src/utils/logger.ts`) |
 
-- 💬 **Issue Auto-Response**: Codex analyzes new or updated issues and provides appropriate replies or fixes
-- 📝 **Documentation Quality Check (Beta)**: Automatically checks the quality of README and other documentation, and proposes improvements via PR
-- 🔍 **Code Review (Beta)**: Automatically reviews PR code and suggests improvements
-- 🌐 **README Translation (Beta)**: Automatically translates README.md to Japanese and creates a PR
+> 💡 **Slash Command** support is not included out-of-the-box, but the command registration logic is extensible.
 
-## 📦 Setup
+## Requirements
+- Node.js **16.9.0 or higher**  
+- npm, pnpm, or yarn  
+- Discord Bot account & token  
+- (Optional) OpenAI / GitHub token, etc.
 
-Follow the steps below to initialize the repository and configure the required environment variables and secrets.
-
-### 1. Clone the repository
-
+## Installation
 ```bash
-git clone https://github.com/<USERNAME>/<REPO>.git
-cd <REPO>
+git clone https://github.com/Sunwood-ai-labs/ts-discord-bot.git
+cd ts-discord-bot
+
+# Install dependencies
+npm install        # or pnpm install / yarn install
 ```
 
-### 2. Create .env file
+## Environment Variables
+1. Copy the template  
+   ```bash
+   cp .env.example .env
+   ```
+2. Open `.env` and set the following variables  
+   | Variable | Purpose |
+   |------|------|
+   | `DISCORD_TOKEN` | Discord Bot token |
+   | `PREFIX` | Prefix for message commands (default: `!`) |
+   | others | See comments in `.env.example` |
 
+## Usage
+### Development mode
+Runs TypeScript directly with hot-reload.
 ```bash
-cp .env.example .env
+npm run dev
+```
+The bot restarts automatically whenever you save files under `src/`.
+
+### Production mode
+1. Build  
+   ```bash
+   npm run build
+   ```
+2. Start  
+   ```bash
+   npm start
+   ```
+
+## npm Scripts
+| Command | Description |
+| -------- | ---- |
+| `npm run dev`   | Start dev server with ts-node-dev |
+| `npm run build` | Transpile to `dist/` with tsc |
+| `npm start`     | Run the bot with `node dist/index.js` |
+
+## 💬 How to use in chat
+Once the bot joins your server and is online, type commands in a text channel.  
+The **default prefix is `!`** (changeable via the `PREFIX` variable).
+
+| Input | Reply | Description |
+| ------ | ---- | ---- |
+| `!ping` | `Pong!` | Connectivity check |
+| `!help` | `Available commands: ping, help` | List available message commands |
+
+> ❗ You don’t need to mention the bot. Just prefix your message.
+
+### Changing the prefix
+1. Edit `PREFIX` in `.env`  
+2. Restart the bot
+
+### About Slash Commands
+Currently only message-based commands are supported.  
+To add **Slash Commands**, create modules under `src/commands/` and implement separate registration logic for Discord API.
+
+## Project structure
+```text
+ts-discord-bot/
+├── src/
+│   ├── commands/             # Message commands
+│   ├── events/               # Discord events
+│   ├── utils/                # Utility modules
+│   ├── config.ts             # .env loader & shared config
+│   └── index.ts              # Entry point
+├── dist/                     # Build output (gitignored)
+├── .env.example              # Environment variable template
+├── tsconfig.json             # TypeScript config
+└── package.json
 ```
 
-Open the `.env` file and set the following environment variables:
-
-* `OPENAI_API_KEY`    : OpenAI API key
-* `GITHUB_TOKEN`      : GitHub API token (optional; automatically provided in GitHub Actions)
-* `CODEX_QUIET_MODE`  : Codex quiet mode (e.g., `1`)
-
-### 3. Configure Secrets (for GitHub Actions)
-
-In your GitHub repository, go to Settings > Secrets and add the following:
-
-* `OPENAI_API_KEY` : OpenAI API key
-
-### 4. Enable Workflows
-
-Workflow files in `.github/workflows/` will be automatically enabled.
-
-## 🛠️ Usage
-
-### Issue Auto-Response
-
-1. Create or update an issue
-2. Codex analyzes the content and posts an appropriate reply
-3. If code changes are needed, a PR is automatically created
-
-### Documentation Quality Check
-
-1. Push a markdown file or create a PR
-2. Codex checks quality and automatically applies improvements
-3. Propose the changes as a PR
-
-### Code Review
-
-1. Create a new PR
-2. Codex reviews the changes
-3. Posts improvement suggestions as comments
-
-### README Translation
-
-1. Update README.md
-2. Automatically creates a Japanese version
-3. Creates a PR with README.ja.md
-
-## ⚙️ Workflow List
-
-| Workflow                          | Trigger                | Description                         |
-|-----------------------------------|------------------------|-------------------------------------|
-| `issue-response-codex.yml`        | Issue creation/update  | Auto-response to issues             |
-| `document-quality-check.yml`      | Markdown file changes  | Documentation quality check         |
-| `code-review-codex.yml`           | PR creation/update     | Code review                         |
-| `readme-translation-codex.yml`    | README.md changes      | Japanese translation                |
-
-## 🔧 Customization
-
-You can customize each workflow’s Codex prompts to adjust behavior according to your project's needs.
-
-## 📝 Important Notes
-
-- Set `CODEX_QUIET_MODE=1` to minimize noise from Codex
-- Use the `-a auto-edit` option to enable auto-approval mode
-- All operations are executed with Japanese prompts
-
-## 🤝 Contributing
-
-Please open an issue for suggestions or bug reports. PRs are also welcome!
-
-## 📄 License
-
+## License
 MIT License
