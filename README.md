@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://github.com/user-attachments/assets/68b5cd82-db5a-440f-b88e-9d47aaa69f78" alt="ヘッダー画像" width="100%" />
+<img src="https://github.com/user-attachments/assets/4270251d-37a8-45d3-beac-f18d125a17b1" alt="ヘッダー画像" width="100%" />
 
 # ✨ ts-discord-bot
 
