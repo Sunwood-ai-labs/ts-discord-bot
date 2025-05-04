@@ -1,10 +1,6 @@
 <div align="center">
 
-<!--
-  SVG header
-  assets/header.svg に配置されたロゴをインラインで読み込む場合は以下を参照
-  <img src="assets/header.svg" width="100%" />
--->
+<img src="https://github.com/user-attachments/assets/68b5cd82-db5a-440f-b88e-9d47aaa69f78" alt="ヘッダー画像" width="100%" />
 
 # ✨ ts-discord-bot
 
